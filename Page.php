@@ -368,7 +368,7 @@ class HTML_Page extends HTML_Common {
     function _generateHead()
     {
         // close empty tags if XHTML
-        if ($_doctype['type'] == 'xhtml'){
+        if ($this->_doctype['type'] == 'xhtml'){
             $tagEnd = ' />';
         } else {
             $tagEnd = '>';
