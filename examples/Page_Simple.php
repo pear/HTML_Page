@@ -29,7 +29,7 @@ require_once 'HTML/Page.php';
 
 $p = new HTML_Page();
  
-// Page title defaults to "New XHTML 1.0 Page"
+// Page title defaults to "New XHTML 1.0 Transitional Compliant Page"
 
 $p->addBodyContent('<h1>Headline</h1>');
 $p->addBodyContent('<p>Copyright 2003 The PHP Group</p>');

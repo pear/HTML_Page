@@ -27,9 +27,9 @@ require_once "HTML/Page.php";
 //    -> language = en
 //    -> cache = false
 
-$p = new HTML_Page('doctype="none"');
+$p = new HTML_Page(array('doctype'=>'none'));
 
-// "simple" Page title defaults to "New HTML Page"
+// "simple" Page title defaults to "New Page"
 
 $p->addBodyContent("<h1>Headline</h1>");
 $p->addBodyContent("<p>Some text</p>");
