@@ -16,6 +16,7 @@
 // | Author:  Klaus Guenther <klaus@capitalfocus.org>                     |
 // +----------------------------------------------------------------------+
 //
+// $ID$
 
 /**
  * This file contains an array of doctype settings.
