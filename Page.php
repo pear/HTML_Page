@@ -484,8 +484,8 @@ class HTML_Page extends HTML_Common {
                 if (method_exists($content, "toString")) {
                     $strHtml .= $content->toString() . $lnEnd;
                 } else {
-                    return PEAR::raiseError('Error: Style content object does not support  method toString().',
-                    0,PEAR_ERROR_TRIGGER);
+                    PEAR::raiseError('Error: Style content object does not support  method toString().',
+                            0,PEAR_ERROR_TRIGGER);
                 }
                 
             } else {
@@ -530,8 +530,8 @@ class HTML_Page extends HTML_Common {
                 if (method_exists($content, "toString")) {
                     $strHtml .= $content->toString() . $lnEnd;
                 } else {
-                    return PEAR::raiseError('Error: Script content object does not support  method toString().',
-                    0,PEAR_ERROR_TRIGGER);
+                    PEAR::raiseError('Error: Script content object does not support  method toString().',
+                            0,PEAR_ERROR_TRIGGER);
                 }
                 
             } else {
@@ -611,6 +611,7 @@ class HTML_Page extends HTML_Common {
             PEAR::raiseError('Error: "'.$this->getDoctypeString().'" is an unsupported or illegal document type.',
                                     0,PEAR_ERROR_TRIGGER);
             $this->_simple = true;
+            return;
         }
         
     } // end func _getDoctype
@@ -663,8 +664,11 @@ class HTML_Page extends HTML_Common {
         if ($strNamespace) {
             return $strNamespace;
         } else {
-            return PEAR::raiseError('Error: "'.$this->getDoctypeString().'" does not have a default namespace. Use setNamespace() to define your namespace.',
-                                    0,PEAR_ERROR_TRIGGER);
+            PEAR::raiseError('Error: "' . $this->getDoctypeString() .
+                                    '" does not have a default namespace.' .
+                                    ' Use setNamespace() to define your namespace.',
+                                    0, PEAR_ERROR_TRIGGER);
+            return;
         }
         
     } // end func _getNamespace
