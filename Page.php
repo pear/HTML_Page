@@ -608,8 +608,9 @@ class HTML_Page extends HTML_Common {
         if ($strDoctype) {
             return $strDoctype;
         } else {
-            return PEAR::raiseError('Error: "'.$this->getDoctypeString().'" is an unsupported or illegal document type.',
+            PEAR::raiseError('Error: "'.$this->getDoctypeString().'" is an unsupported or illegal document type.',
                                     0,PEAR_ERROR_TRIGGER);
+            $this->_simple = true;
         }
         
     } // end func _getDoctype
@@ -1061,7 +1062,6 @@ class HTML_Page extends HTML_Common {
         
         // get the doctype declaration
         $strDoctype = $this->_getDoctype();
-echo "ok<br>\n";
         
         // This determines how the doctype is declared
         if ($this->_simple) {

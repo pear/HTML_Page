@@ -81,6 +81,18 @@ $doctype['html']['4.01']['transitional'][] = '        "http://www.w3.org/TR/html
 $doctype['html']['4.01']['frameset'][] = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"';
 $doctype['html']['4.01']['frameset'][] = '        "http://www.w3.org/TR/html4/frameset.dtd">';
 
+// HTML 4.0 Strict
+$doctype['html']['4.0']['strict'][] = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"';
+$doctype['html']['4.0']['strict'][] = '        "http://www.w3.org/TR/REC-html40/strict.dtd">';
+
+// HTML 4.0 Transitional
+$doctype['html']['4.0']['transitional'][] = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"';
+$doctype['html']['4.0']['transitional'][] = '        "http://www.w3.org/TR/REC-html40/loose.dtd">';
+
+// HTML 4.0 Frameset
+$doctype['html']['4.0']['frameset'][] = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN"';
+$doctype['html']['4.0']['frameset'][] = '        "http://www.w3.org/TR/REC-html40/frameset.dtd">';
+
 // Since the following is simply historic, I'm not adding the level 1 & 2 or strict stuff.
 // This doctype should be sufficient for most historic uses.
 
