@@ -28,7 +28,7 @@ $i = $j = 0;
 for ($R = 0; $R <= 255; $R += 51) {
     for ($G = 0; $G <= 255; $G += 51) {
         for($B = 0; $B <= 255; $B += 51) {
-            $table->setCellAttributes($i, $j, 'style="background-color:'.sprintf('%02X%02X%02X', $R, $G, $B).';"');
+            $table->setCellAttributes($i, $j, 'style="background-color:#'.sprintf('%02X%02X%02X', $R, $G, $B).';"');
             $j++;
         }
     }
