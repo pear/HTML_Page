@@ -547,18 +547,38 @@ class HTML_Page extends HTML_Common {
     {
         require('HTML/Page/Namespaces.php');
         
-        $type = $this->_doctype['type'];
-        $version = $this->_doctype['version'];
-        $variant = $this->_doctype['variant'];
+        if (isset($this->_doctype['type'])) {
+            $type = $this->_doctype['type'];
+        }
+        
+        if (isset($this->_doctype['version'])) {
+            $version = $this->_doctype['version'];
+        }
+        
+        if (isset($this->_doctype['variant'])) {
+            $variant = $this->_doctype['variant'];
+        }
         
         $strNamespace = '';
         
-        if (isset($namespace[$type][$version][$variant][0]) && is_string($namespace[$type][$version][$variant][0])) {
-            $strNamespace = $namespace[$type][$version][$variant][0];
-        } elseif (isset($namespace[$type][$version][0]) && is_string($namespace[$type][$version][0]) ) {
-            $strNamespace = $namespace[$type][$version][0];
-        } elseif (isset($namespace[$type][0]) && is_string($namespace[$type][0]) ) {
-            $strNamespace = $namespace[$type][0];
+        if (isset($variant)){
+            if (isset($namespace[$type][$version][$variant][0]) && is_string($namespace[$type][$version][$variant][0])) {
+                $strNamespace = $namespace[$type][$version][$variant][0];
+            } elseif (isset($namespace[$type][$version][0]) && is_string($namespace[$type][$version][0]) ) {
+                $strNamespace = $namespace[$type][$version][0];
+            } elseif (isset($namespace[$type][0]) && is_string($namespace[$type][0]) ) {
+                $strNamespace = $namespace[$type][0];
+            }
+        } elseif (isset($version)) {
+            if (isset($namespace[$type][$version][0]) && is_string($namespace[$type][$version][0]) ) {
+                $strNamespace = $namespace[$type][$version][0];
+            } elseif (isset($namespace[$type][0]) && is_string($namespace[$type][0]) ) {
+                $strNamespace = $namespace[$type][0];
+            }
+        } else {
+            if (isset($namespace[$type][0]) && is_string($namespace[$type][0]) ) {
+                $strNamespace = $namespace[$type][0];
+            }
         }
             
         
@@ -916,7 +936,7 @@ class HTML_Page extends HTML_Common {
             
             $strHtml  = '<?xml version="1.0" encoding="' . $this->_charset . '"?>' . $lnEnd;
             $strHtml .= $strDoctype . $lnEnd;
-            $strHtml .= '<html xmlns="' . $this->_namespace . '" xml:lang="' . $this->_language . '">';
+            $strHtml .= '<html xmlns="' . $this->_namespace . '" xml:lang="' . $this->_language . '">' . $lnEnd;
             
         } else {
             
