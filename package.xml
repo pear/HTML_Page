@@ -31,15 +31,12 @@ The PEAR::HTML_Page package provides a simple interface for generating an XHTML 
     </maintainer>
   </maintainers>
   <release>
-    <version>2.0.0b4</version>
-    <date>2003-07-15</date>
+    <version>2.0.0b5</version>
+    <date>2003-07-29</date>
     <state>beta</state>
     <notes>
-* added inline script declaration in the head element
-Bugfixes:
-* fixed mime encoding declaration
-* fixed Content-Type meta tag generation
-* fixed style definition based on mime type
+* Fixed notice when an array is passed to the constructor
+  Now gives a notice when a string is passed (thanks to Laurent Laville)
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML">
@@ -60,6 +57,18 @@ Bugfixes:
     </deps>
   </release>
  <changelog>
+  <release>
+    <version>2.0.0b4</version>
+    <date>2003-07-15</date>
+    <state>beta</state>
+    <notes>
+* added inline script declaration in the head element
+Bugfixes:
+* fixed mime encoding declaration
+* fixed Content-Type meta tag generation
+* fixed style definition based on mime type
+    </notes>
+  </release>
   <release>
     <version>2.0.0b3</version>
     <date>2003-07-12</date>
