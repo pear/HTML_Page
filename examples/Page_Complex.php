@@ -59,7 +59,7 @@ $p = new HTML_Page(array (
                            'cache'     => 'false'
                          ));
  
-// Page title defaults to "New XHTML 1.0 Page"
+// Page title defaults to "New XHTML 1.0 Strict Page"
 $p->setTitle("HTML_Page Color Chart example");
 $p->setMetaData("author", "Klaus Guenther");
 
@@ -69,7 +69,7 @@ $p->setMetaContentType();
 $p->addBodyContent("<h1>Color Chart</h1>");
 
 // Objects with toHtml and toString are supported.
-$p->addBodyContent(&$table);
+$p->addBodyContent($table);
 $p->addBodyContent('<p>Copyright 2003 The PHP Group</p>');
 
 // output to browser

@@ -93,7 +93,7 @@ require_once 'HTML/Common.php';
  * $p->setMetaData("author", "My Name");
  * 
  * // Put something into the body
- * $p->addBodyContent = "<p>some text</p>";
+ * $p->addBodyContent("<p>some text</p>");
  *
  * // If at some point you want to clear the page content
  * // and output an error message, you can easily do that
@@ -236,9 +236,9 @@ class HTML_Page extends HTML_Common {
     var $_script = array();
     
     /**
-     * Array of linked scripts
+     * Defines whether doctype
      * 
-     * @var     array
+     * @var     boolean
      * @access  private
      */
     var $_simple = false;
@@ -295,11 +295,6 @@ class HTML_Page extends HTML_Common {
      */
     function HTML_Page($attributes = array())
     {
-        $commonVersion = 1.7;
-        if (HTML_Common::apiVersion() < $commonVersion) {
-            return PEAR::raiseError("HTML_Page version " . $this->apiVersion() . " requires " .
-                "HTML_Common version 1.2 or greater.", 0, PEAR_ERROR_TRIGGER);
-        }
         
         if ($attributes) {
             $attributes = $this->_parseAttributes($attributes);
@@ -445,7 +440,7 @@ class HTML_Page extends HTML_Common {
         // Generate stylesheet links
         foreach ($this->_styleSheets as $strSrc => $strAttr ) {
             $strHtml .= $tab . "<link rel=\"stylesheet\" href=\"$strSrc\" type=\"".$strAttr['mime'].'"';
-            if (!is_null($strType['media'])){
+            if (!is_null($strAttr['media'])){
                 $strHtml .= ' media="'.$strAttr['media'].'"';
             }
             $strHtml .= $tagEnd . $lnEnd;
@@ -803,7 +798,7 @@ class HTML_Page extends HTML_Common {
     /**
      * Returns the document type string
      *
-     * @access private
+     * @access public
      * @return string
      */
     function getDoctypeString()
@@ -822,7 +817,7 @@ class HTML_Page extends HTML_Common {
      * @return string
      * @access public
      */
-    function getLang ()
+    function getLang()
     {
         return $this->_language;
     } // end func getLang
@@ -1020,7 +1015,7 @@ class HTML_Page extends HTML_Common {
      * Generates and returns the complete page as a string.
      * 
      * @return string
-     * @access private
+     * @access public
      */
     function toHTML()
     {
