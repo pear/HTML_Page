@@ -16,7 +16,7 @@
 // | Author: Klaus Guenther <klaus@capitalfocus.org>                      |
 // +----------------------------------------------------------------------+
 //
-// $ID$
+// $Id$
 
 require_once 'HTML/Page.php';
 
