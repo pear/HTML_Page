@@ -751,7 +751,7 @@ class HTML_Page extends HTML_Common {
      * Returns the current API version
      * 
      * @access   public
-     * @returns  double
+     * @return   double
      */
     function apiVersion()
     {
@@ -762,7 +762,7 @@ class HTML_Page extends HTML_Common {
      *  Disables prepending the XML prolog for XHTML documents
      * 
      * @access   public
-     * @returns  void
+     * @return  void
      */
     function disableXmlProlog()
     {
@@ -773,7 +773,7 @@ class HTML_Page extends HTML_Common {
      *  Enables prepending the XML prolog for XHTML documents (default)
      * 
      * @access   public
-     * @returns  void
+     * @return   void
      */
     function enableXmlProlog()
     {
@@ -784,7 +784,7 @@ class HTML_Page extends HTML_Common {
      * Returns the document charset encoding.
      * 
      * @access public
-     * @returns string
+     * @return string
      */
     function getCharset()
     {
@@ -821,7 +821,7 @@ class HTML_Page extends HTML_Common {
     /**
      * Return the title of the page.
      * 
-     * @returns  string
+     * @return   string
      * @access   public
      */
     function getTitle()
@@ -880,8 +880,8 @@ class HTML_Page extends HTML_Common {
      * Defines if the document should be cached by the browser. Defaults to false.
      * 
      * @param string $cache Options are currently 'true' or 'false'. Defaults to 'false'.
-     * @access public
-     * @returns void
+     * @access  public
+     * @return  void
      */
     function setCharset($type = 'utf-8')
     {
@@ -895,8 +895,8 @@ class HTML_Page extends HTML_Common {
      * when the class is initiated {@link HTML_Page}.
      * 
      * @param string $type   String containing a document type. Defaults to "XHTML 1.0 Transitional"
-     * @access public
-     * @returns void
+     * @access  public
+     * @return  void
      */
     function setDoctype($type = "XHTML 1.0 Transitional")
     {
@@ -936,7 +936,7 @@ class HTML_Page extends HTML_Common {
      * Sets an http-equiv Content-Type meta tag
      * 
      * @access   public
-     * @returns  void
+     * @return   void
      */
     function setMetaContentType()
     {
@@ -972,7 +972,7 @@ class HTML_Page extends HTML_Common {
      * 
      * @param    string    $type
      * @access   public
-     * @returns  void
+     * @return   void
      */
     function setMimeEncoding($type = 'text/html')
     {
@@ -984,7 +984,7 @@ class HTML_Page extends HTML_Common {
      * 
      * @param    string    $namespace  Optional. W3C namespaces are used by default.
      * @access   public
-     * @returns  void
+     * @return   void
      */
     function setNamespace($namespace = '')
     {
@@ -1000,7 +1000,7 @@ class HTML_Page extends HTML_Common {
      * 
      * @param    string    $title
      * @access   public
-     * @returns  void
+     * @return   void
      */
     function setTitle($title)
     {
@@ -1072,7 +1072,7 @@ class HTML_Page extends HTML_Common {
             fclose($file);
         }
         if (!file_exists($filename)){
-            PEAR::raiseError("HTML_Page::toFile() error: Failed to write to $filename");
+            PEAR::raiseError("HTML_Page::toFile() error: Failed to write to $filename",0,PEAR_ERROR_TRIGGER);
         }
         
     } // end func toFile
