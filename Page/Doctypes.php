@@ -19,10 +19,10 @@
 // $Id$
 
 /**
- * This file contains an array of doctype settings.
+ * This file contains an array of doctype declarations.
  * These declarations have been taken directly from the w3c website:
  * http://www.w3c.org/
- *
+ * 
  */
 
 // Array of defaults:
@@ -62,6 +62,12 @@ $doctype['xhtml']['1.1'][] = '    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"
 $doctype['xhtml']['basic']['1.0'][] = '<!DOCTYPE html';
 $doctype['xhtml']['basic']['1.0'][] = '    PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN"';
 $doctype['xhtml']['basic']['1.0'][] = '    "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">';
+
+// XHTML 2.0
+// from the W3C Working Draft 6 May 2003
+$doctype['xhtml']['2.0'][] = '<!DOCTYPE html';
+$doctype['xhtml']['2.0'][] = '    PUBLIC "-//W3C//DTD XHTML 2.0//EN"';
+$doctype['xhtml']['2.0'][] = '    "TBD">';
 
 // HTML 4.01 Strict
 $doctype['html']['4.01']['strict'][] = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"';
