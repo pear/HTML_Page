@@ -424,7 +424,6 @@ class HTML_Page extends HTML_Common {
         $tab = $this->_getTab();
         
         $strHtml  = '<head>' . $lnEnd;
-        $strHtml .= $tab . '<title>' . $this->getTitle() . '</title>' . $lnEnd;
         
         // Generate META tags
         foreach ($this->_metaTags as $type => $tag) {
@@ -436,6 +435,12 @@ class HTML_Page extends HTML_Common {
                 }
             }
         }
+
+        // Generate the title tag.
+        // Pre-XHTML compatibility:
+        //     This comes after meta tags because of possible
+        //     http-equiv character set declarations.
+        $strHtml .= $tab . '<title>' . $this->getTitle() . '</title>' . $lnEnd;
         
         // Generate stylesheet links
         foreach ($this->_styleSheets as $strSrc => $strAttr ) {
@@ -450,7 +455,7 @@ class HTML_Page extends HTML_Common {
         foreach ($this->_style as $type => $content) {
             $strHtml .= $tab . '<style type="' . $type . '">' . $lnEnd;
             
-            // This is for full XHTML supporte.
+            // This is for full XHTML support.
             if ($this->_mime == 'text/html' ) {
                 $strHtml .= $tab . $tab . '<!--' . $lnEnd;
             } else {
@@ -479,7 +484,6 @@ class HTML_Page extends HTML_Common {
             }
             
             // See above note
-            
             if ($this->_mime == 'text/html' ) {
                 $strHtml .= $tab . $tab . '-->' . $lnEnd;
             } else {
