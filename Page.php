@@ -282,7 +282,7 @@ class HTML_Page extends HTML_Common {
      *                                  or HTML attributes name="value" pairs
      * @access  public
      */
-    function HTML_Page($attributes = "")
+    function HTML_Page($attributes = array())
     {
         $commonVersion = 1.7;
         if (HTML_Common::apiVersion() < $commonVersion) {
