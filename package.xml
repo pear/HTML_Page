@@ -35,6 +35,7 @@ The PEAR::HTML_Page package provides a simple interface for generating an XHTML 
     <notes>
 Bugfixes:
 * 24188: Updated examples
+* fixed problems with functions accepting mixed variable types
 * updated inline documentation
     </notes>
     <filelist>
