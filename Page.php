@@ -336,7 +336,45 @@ class HTML_Page extends HTML_Common {
             $this->setCache($attributes['cache']);
         }
         
-    }
+    } // end class constructor
+
+    /**
+     * itterates through an array, returning a string
+     * of HTML. It also handles objects, calling the
+     * toHtml or toString methods.
+     *
+     * @access  protected
+     * @return  string
+     */
+    function _arrayToHtml(&$array) // It's a reference just to save some memory.
+    {
+        $lnEnd = $this->_getLineEnd();
+        $tab = $this->_getTab();
+        $strHtml = '';
+        foreach ($array as $element) {
+            if (is_object($element)) {
+                if (is_subclass_of($element, 'html_common')) {
+                    $element->setTabOffset(1);
+                    $element->setTab($tab);
+                    $element->setLineEnd($lnEnd);
+                }
+                if (is_object($element)) {
+                    if (method_exists($element, 'toHtml')) {
+                        $strHtml .= $element->toHtml() . $lnEnd;
+                    } elseif (method_exists($element, 'toString')) {
+                        $strHtml .= $element->toString() . $lnEnd;
+                    }
+                } else {
+                    $strHtml .= $tab . $element . $lnEnd;
+                }
+            } elseif (is_array($element)) {
+                $strHtml .= $this->_arrayToHtml($element);
+            } else {
+                $strHtml .= $tab . $element . $lnEnd;
+            }
+        }
+        return $strHtml;
+    } // end func _arrayToHtml
     
     /**
      * Generates the HTML string for the &lt;body&lt; tag
@@ -360,46 +398,14 @@ class HTML_Page extends HTML_Common {
         } else {
             $strHtml = '<body>' . $lnEnd;
         }
-        
-        // Allow for mixed content in the body array
-        // Iterate through the array and process each element
-        foreach ($this->_body as $element) {
-            if (is_object($element)) {
-                if (is_subclass_of($element, "html_common")) {
-                    $element->setTab($tab);
-                    $element->setTabOffset(1);
-                    $element->setLineEnd($lnEnd);
-                }
-                if (method_exists($element, "toHtml")) {
-                    $strHtml .= $element->toHtml() . $lnEnd;
-                } elseif (method_exists($element, "toString")) {
-                    $strHtml .= $element->toString() . $lnEnd;
-                }
-            } elseif (is_array($element)) {
-                foreach ($element as $level2) {
-                    if (is_subclass_of($level2, "html_common")) {
-                        $level2->setTabOffset(1);
-                        $level2->setTab($tab);
-                        $level2->setLineEnd($lnEnd);
-                    }
-                    if (is_object($level2)) {
-                        if (method_exists($level2, "toHtml")) {
-                            $strHtml .= $level2->toHtml() . $lnEnd;
-                        } elseif (method_exists($level2, "toString")) {
-                            $strHtml .= $level2->toString() . $lnEnd;
-                        }
-                    } else {
-                        $strHtml .= $tab . $level2 . $lnEnd;
-                    }
-                }
-            } else {
-                $strHtml .= $tab . $element . $lnEnd;
-            }
-        }
-        
+
+        // Allow for mixed content in the body array, recursing into inner
+        // array serching for non-array types.
+        $strHtml .= $this->_arrayToHtml($this->_body);
+
         // Close tag
         $strHtml .= '</body>' . $lnEnd;
-        
+
         // Let's roll!
         return $strHtml;
     } // end func _generateHead
