@@ -395,10 +395,10 @@ class HTML_Page extends HTML_Common {
     function _generateHead()
     {
         // close empty tags if XHTML
-        if ($this->_doctype['type'] == 'xhtml'){
-            $tagEnd = ' />';
-        } else {
+        if ($this->_doctype['type'] == 'html'){
             $tagEnd = '>';
+        } else {
+            $tagEnd = ' />';
         }
         
         // get line endings
@@ -429,7 +429,11 @@ class HTML_Page extends HTML_Common {
         // Generate stylesheet declarations
         foreach ($this->_style as $type => $content) {
             $strHtml .= $tab . '<style type="' . $type . '">' . $lnEnd;
-            $strHtml .= $tab . $tab . '<!--' . $lnEnd;
+            if ($this->_doctype['type'] == 'html' ) {
+                $strHtml .= $tab . $tab . '<!--' . $lnEnd;
+            } else {
+                $strHtml .= $tab . $tab . '<![CDATA[' . $lnEnd;
+            }
             if (is_object($content)) {
                 
                 // first let's propagate line endings and tabs for other HTML_Common-based objects
@@ -450,8 +454,12 @@ class HTML_Page extends HTML_Common {
             } else {
                 $strHtml .= $content . $lnEnd;
             }
-            $strHtml .= $tab . $tab . "-->" . $lnEnd;
-            $strHtml .= $tab . "</style>" . $lnEnd;
+            if ($this->_doctype['type'] == 'html' ) {
+                $strHtml .= $tab . $tab . '-->' . $lnEnd;
+            } else {
+                $strHtml .= $tab . $tab . ']]>' . $lnEnd;
+            }
+            $strHtml .= $tab . '</style>' . $lnEnd;
         }
         
         // Generate script file links
