@@ -314,6 +314,10 @@ class HTML_Page extends HTML_Common {
             $this->setNamespace($attributes['namespace']);
         }
         
+        if (isset($attributes['tab'])) {
+            $this->setTab($attributes['tab']);
+        }
+        
         if (isset($attributes['cache'])) {
             $this->setCache($attributes['cache']);
         }

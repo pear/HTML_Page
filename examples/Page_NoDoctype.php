@@ -26,6 +26,7 @@ require_once "HTML/Page.php";
 //                 (if set to "none", doctype and language are not set)
 //    -> language = en
 //    -> cache = false
+
 $p = new HTML_Page('doctype="none"');
 
 // "simple" Page title defaults to "New HTML Page"

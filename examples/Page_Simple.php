@@ -20,9 +20,12 @@
 
 require_once 'HTML/Page.php';
 
-// The initializing code can also be in in the form of an HTML
-// attr="value" string.
-// Possible attributes are: lineend, doctype, language and cache
+// With no initial settings, the following defaults are set:
+//    -> lineends = unix (\12)
+//    -> doctype = XHTML 1.0 Transitional
+//                 (if set to "none", doctype and language are not set)
+//    -> language = en
+//    -> cache = false
 
 $p = new HTML_Page();
  
