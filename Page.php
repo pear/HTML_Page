@@ -346,15 +346,14 @@ class HTML_Page extends HTML_Common {
      * extend HTML_Common.
      *
      * @access  protected
-     * @param   array   $array   The array to be processed
+     * @param   mixed   $element   The element to be processed
      * @return  string
      */
-    function _arrayToHtml(&$array) // It's a reference just to save some memory.
+    function _elementToHtml(&$element) // It's a reference just to save some memory.
     {
         $lnEnd = $this->_getLineEnd();
         $tab = $this->_getTab();
         $strHtml = '';
-        foreach ($array as $element) {
             if (is_object($element)) {
                 if (is_subclass_of($element, 'html_common')) {
                     $element->setTabOffset(1);
@@ -363,21 +362,22 @@ class HTML_Page extends HTML_Common {
                 }
                 if (is_object($element)) {
                     if (method_exists($element, 'toHtml')) {
-                        $strHtml .= $element->toHtml() . $lnEnd;
+                        $strHtml .= $this->_elementToHtml($element->toHtml()) . $lnEnd;
                     } elseif (method_exists($element, 'toString')) {
-                        $strHtml .= $element->toString() . $lnEnd;
+                        $strHtml .= $this->_elementToHtml($element->toString()) . $lnEnd;
                     }
                 } else {
                     $strHtml .= $tab . $element . $lnEnd;
                 }
             } elseif (is_array($element)) {
-                $strHtml .= $this->_arrayToHtml($element);
+                               foreach ($element as $item) {
+                                               $strHtml .= $this->_elementToHtml($item);
+                               }
             } else {
                 $strHtml .= $tab . $element . $lnEnd;
             }
-        }
         return $strHtml;
-    } // end func _arrayToHtml
+    } // end func _elementToHtml
     
     /**
      * Generates the HTML string for the &lt;body&lt; tag
@@ -404,7 +404,7 @@ class HTML_Page extends HTML_Common {
 
         // Allow for mixed content in the body array, recursing into inner
         // array serching for non-array types.
-        $strHtml .= $this->_arrayToHtml($this->_body);
+        $strHtml .= $this->_elementToHtml($this->_body);
 
         // Close tag
         $strHtml .= '</body>' . $lnEnd;
