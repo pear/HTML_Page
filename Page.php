@@ -806,10 +806,10 @@ class HTML_Page extends HTML_Common {
     } // end func addStyleDeclaration
     
     /**
-     * Adds a favicon
-     * This adds a link to the icon shown in the favorites list or on the left
-     * of the url in the address bar. Some browsers also display it on the tab,
-     * as well.
+     * Adds a shortcut icon (favicon)
+     * This adds a link to the icon shown in the favorites list or on 
+     * the left of the url in the address bar. Some browsers display 
+     * it on the tab, as well.
      *
      * @access    public
      * @param     string  $href        The link that is being related.
@@ -824,11 +824,13 @@ class HTML_Page extends HTML_Common {
     /**
      * Adds &lt;link&gt; tags to the head of the document.
      * $relType defaults to 'rel' as it is the most common relation type used.
+     * ('rev' refers to reverse relation, 'rel' indicates normal, forward relation.)
+     * Typical tag: &lt;link href="index.php" rel="Start"&lt;
      *
      * @access   public
      * @param    string  $href       The link that is being related.
      * @param    string  $relation   Relation of link.
-     * @param    string  $relType    Relation type attribute.  Either rel or rev.
+     * @param    string  $relType    Relation type attribute.  Either rel or rev (default: 'rel').
      * @param    array   $attributes Associative array of remaining attributes.
      * @return   void
      */
