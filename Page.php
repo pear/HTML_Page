@@ -433,11 +433,15 @@ class HTML_Page extends HTML_Common {
         // Generate stylesheet declarations
         foreach ($this->_style as $type => $content) {
             $strHtml .= $tab . '<style type="' . $type . '">' . $lnEnd;
-            if ($this->_doctype['type'] == 'html' ) {
+            
+            // This is for when XHTML is fully supported. Until then,
+            // <!-- will be used for both.
+            //if ($this->_doctype['type'] == 'html' ) {
                 $strHtml .= $tab . $tab . '<!--' . $lnEnd;
-            } else {
-                $strHtml .= $tab . $tab . '<![CDATA[' . $lnEnd;
-            }
+            //} else {
+            //    $strHtml .= $tab . $tab . '<![CDATA[' . $lnEnd;
+            //}
+            
             if (is_object($content)) {
                 
                 // first let's propagate line endings and tabs for other HTML_Common-based objects
@@ -458,11 +462,14 @@ class HTML_Page extends HTML_Common {
             } else {
                 $strHtml .= $content . $lnEnd;
             }
-            if ($this->_doctype['type'] == 'html' ) {
+            
+            // See above note
+            
+            //if ($this->_doctype['type'] == 'html' ) {
                 $strHtml .= $tab . $tab . '-->' . $lnEnd;
-            } else {
-                $strHtml .= $tab . $tab . ']]>' . $lnEnd;
-            }
+            //} else {
+            //    $strHtml .= $tab . $tab . ']]>' . $lnEnd;
+            //}
             $strHtml .= $tab . '</style>' . $lnEnd;
         }
         
@@ -844,7 +851,7 @@ class HTML_Page extends HTML_Common {
      */
     function setMetaContentType()
     {
-        $this->setMetaData('Content-Type', $this->_mime . '; ' . $this->_charset , true );
+        $this->setMetaData('Content-Type', $this->_mime . '; charset=' . $this->_charset , true );
     } // end func setMetaContentType
     
     /**
@@ -892,7 +899,7 @@ class HTML_Page extends HTML_Common {
      */
     function setNamespace($namespace = '')
     {
-        if (is_set($namespace)){
+        if (isset($namespace)){
             $this->_namespace = $namespace;
         } else {
             $this->_namespace = $this->_getNamespace();
