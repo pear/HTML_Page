@@ -432,10 +432,8 @@ class HTML_Page extends HTML_Common {
         }
         
         // Generate stylesheet links
-        $count = count($this->_styleSheets);
-        for($intCounter=0; $intCounter < $count; $intCounter++) {
-            $strStyleSheet = $this->_styleSheets[$intCounter];
-            $strHtml .= $tab . "<link rel=\"stylesheet\" href=\"$strStyleSheet\" type=\"text/css\"" . $tagEnd . $lnEnd;
+        foreach ($this->_styleSheets as $strSrc => $strType ) {
+            $strHtml .= $tab . "<link rel=\"stylesheet\" href=\"$strSrc\" type=\"$strType\"" . $tagEnd . $lnEnd;
         }
         
         // Generate stylesheet declarations
@@ -481,10 +479,7 @@ class HTML_Page extends HTML_Common {
         }
         
         // Generate script file links
-        $count = count($this->_scripts);
-        for($intCounter=0; $intCounter < $count; $intCounter++) {
-            $strType = $this->_scripts[$intCounter]["type"];
-            $strSrc = $this->_scripts[$intCounter]["src"];
+        foreach ($this->_scripts as $strSrc => $strType) {
             $strHtml .= $tab . "<script type=\"$strType\" src=\"$strSrc\"></script>" . $lnEnd;
         }
         
@@ -698,7 +693,7 @@ class HTML_Page extends HTML_Common {
      */
     function addScript($url, $type="text/javascript")
     {
-        $this->_scripts[] = array("type"=>$type, "src"=>$url);
+        $this->_scripts[$url] = $type;
     } // end func addScript
     
     /**
@@ -723,9 +718,9 @@ class HTML_Page extends HTML_Common {
      * @access   public
      * @return   void
      */
-    function addStyleSheet($url)
+    function addStyleSheet($url, $type = 'text/css')
     {
-        $this->_styleSheets[] = $url;
+        $this->_styleSheets[$url] = $type;
     } // end func addStyleSheet
     
     /**
@@ -832,7 +827,7 @@ class HTML_Page extends HTML_Common {
      */
     function unsetBody()
     {
-        $this->_body = '';
+        $this->_body = array();
     } // end unsetBody
         
     /**
