@@ -883,7 +883,8 @@ class HTML_Page extends HTML_Common {
     } // end func getTitle
     
     /**
-     * Sets the content of the &lt;body&gt; tag. If content exists, it is overwritten.
+     * Sets the content of the &lt;body&gt; tag.
+     * If content exists, it is overwritten.
      * If you wish to use a "safe" version, use {@link addBodyContent}
      * Objects must have a toString method.
      * 
@@ -906,6 +907,18 @@ class HTML_Page extends HTML_Common {
         $this->_body = array();
     } // end unsetBody
         
+    /**
+     * Sets the attributes of the &lt;body&gt; tag.
+     * If attributes exist, they are overwritten.
+     *
+     * @param  array   $attributes   &lt;body&gt; tag attributes.
+     * @access public
+     */
+    function setBodyAttributes($attributes)
+    {
+        $this->setAttributes($attributes);
+    } // end setBodyAttributes
+
     /**
      * Defines if the document should be cached by the browser. Defaults to false.
      * 

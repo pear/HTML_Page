@@ -31,6 +31,57 @@ The PEAR::HTML_Page package provides a simple interface for generating an XHTML 
     </maintainer>
   </maintainers>
   <release>
+    <version>2.0.0RC3</version>
+    <date>2003-03-24</date>
+    <state>beta</state>
+    <notes>
+Note: This major release breaks BC!
+
+This release is completely XHTML compliant, and has some great features:
+* Line ending style
+* Full charset support
+* Doctype definitions
+* Namespace definitions
+* Mime encoding declaration
+* Global document language
+* Full META tag support, including "http-equiv"
+* Suport for stylesheet and script declarations in the head section
+* Support for linked stylesheets and scripts (including CSS 2.0 media definitions)
+* Can output directly to a file
+
+Ideas for use:
+* Use to validate the output of a class for XHTML compliance
+* Quick prototyping using PEAR packages is now a breeze
+
+New features:
+* HTML 4.0 doctype support
+* #814 (Feature request: prependBodyContent)
+
+Bugfixes:
+* #800 (Output "Object" prior to HTML if doctype is unknown)
+* #951 (unset META tag was not possible; now use unsetMetaData)
+* Fixed meta tag, title order for pre-XHTML compatibility
+    </notes>
+    <filelist>
+      <dir name="/" baseinstalldir="HTML">
+        <file role="php">Page.php</file>
+          <dir name="Page">
+            <file role="php" name="Doctypes.php" />
+            <file role="php" name="Namespaces.php" />
+          </dir>
+          <dir name="examples">
+            <file role="doc" name="Page_NoDoctype.php" />
+            <file role="doc" name="Page_Simple.php" />
+            <file role="doc" name="Page_Complex.php" />
+          </dir>
+        </dir>
+    </filelist>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.2">HTML_Common</dep>
+    </deps>
+  </release>
+ <changelog>
+  <release>
     <version>2.0.0RC2</version>
     <date>2003-11-03</date>
     <state>beta</state>
@@ -58,25 +109,7 @@ Bugfixes:
 * Fixed inline docs and examples
 * Removed error raising in constructor
     </notes>
-    <filelist>
-      <dir name="/" baseinstalldir="HTML">
-        <file role="php">Page.php</file>
-          <dir name="Page">
-            <file role="php" name="Doctypes.php" />
-            <file role="php" name="Namespaces.php" />
-          </dir>
-          <dir name="examples">
-            <file role="doc" name="Page_NoDoctype.php" />
-            <file role="doc" name="Page_Simple.php" />
-            <file role="doc" name="Page_Complex.php" />
-          </dir>
-        </dir>
-    </filelist>
-    <deps>
-      <dep type="pkg" rel="ge" version="1.2">HTML_Common</dep>
-    </deps>
   </release>
- <changelog>
   <release>
     <version>2.0.0RC1</version>
     <date>2003-10-31</date>
