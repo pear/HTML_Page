@@ -147,6 +147,7 @@ require_once 'HTML/Common.php';
  * 
  * @author       Adam Daniel <adaniel1@eesus.jnj.com>
  * @author       Klaus Guenther <klaus@capitalfocus.org>
+ * @package      HTML_Page
  * @version      2.0
  * @since        PHP 4.0.3pl1
  */
@@ -263,6 +264,14 @@ class HTML_Page extends HTML_Common {
      * @access  private
      */
     var $_title = '';
+    
+    /**
+     * Defines whether XML prolog should be prepended to XHTML documents
+     * 
+     * @var  bool
+     * @access   private
+     */
+    var $_xmlProlog = true;
     
     /**
      * Class constructor
@@ -750,6 +759,28 @@ class HTML_Page extends HTML_Common {
     } // end func apiVersion
     
     /**
+     *  Disables prepending the XML prolog for XHTML documents
+     * 
+     * @access   public
+     * @returns  void
+     */
+    function disableXmlProlog()
+    {
+        $this->_xmlProlog = false;
+    } // end func disableXmlProlog
+    
+    /**
+     *  Enables prepending the XML prolog for XHTML documents (default)
+     * 
+     * @access   public
+     * @returns  void
+     */
+    function enableXmlProlog()
+    {
+        $this->_xmlProlog = true;
+    } // end func enableXmlProlog
+    
+    /**
      * Returns the document charset encoding.
      * 
      * @access public
@@ -1003,9 +1034,13 @@ class HTML_Page extends HTML_Common {
                 $this->_namespace = $this->_getNamespace();
             }
             
-            $strHtml  = '<?xml version="1.0" encoding="' . $this->_charset . '"?>' . $lnEnd;
-            $strHtml .= $strDoctype . $lnEnd;
+            $strHtml = $strDoctype . $lnEnd;
             $strHtml .= '<html xmlns="' . $this->_namespace . '" xml:lang="' . $this->_language . '">' . $lnEnd;
+
+            // check whether the XML prolog should be prepended
+            if ($this->_xmlProlog){
+                $strHtml  = '<?xml version="1.0" encoding="' . $this->_charset . '"?>' . $lnEnd . $strHtml;
+            }
             
         } else {
             
@@ -1019,7 +1054,29 @@ class HTML_Page extends HTML_Common {
         $strHtml .= '</html>';
         return $strHtml;
     } // end func toHtml
-
+    
+    /**
+     * Generates the document and outputs it to a file.
+     *
+     * @return  void
+     * @since   2.0
+     * @access  public
+     */
+    function toFile($filename)
+    {
+        if (function_exists('file_put_content')){
+            file_put_content($filename, $this->toHtml());
+        } else {
+            $file = fopen($filename,'wb');
+            fwrite($file, $this->toHtml());
+            fclose($file);
+        }
+        if (!file_exists($filename)){
+            PEAR::raiseError("HTML_Page::toFile() error: Failed to write to $filename");
+        }
+        
+    } // end func toFile
+    
     /**
      * Outputs the HTML content to the screen.
      * 
