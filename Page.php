@@ -1061,6 +1061,7 @@ class HTML_Page extends HTML_Common {
         
         // get the doctype declaration
         $strDoctype = $this->_getDoctype();
+echo "ok<br>\n";
         
         // This determines how the doctype is declared
         if ($this->_simple) {
