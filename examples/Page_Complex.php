@@ -71,5 +71,9 @@ $p->addBodyContent("<h1>Color Chart</h1>");
 // Objects with toHtml and toString are supported.
 $p->addBodyContent(&$table);
 $p->addBodyContent('<p>Copyright 2003 The PHP Group</p>');
+
+// output to browser
 $p->display();
+// or to a file
+//$p->toFile('example.html');
 ?>
