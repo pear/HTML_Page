@@ -90,7 +90,7 @@ require_once 'HTML/Common.php';
  * $p->setTitle("My page");
  * 
  * // Add optional meta data
- * $p->addMetaData("author", "My Name");
+ * $p->setMetaData("author", "My Name");
  * 
  * // Put something into the body
  * $p->addBodyContent = "<p>some text</p>";
@@ -108,6 +108,8 @@ require_once 'HTML/Common.php';
  *
  * // print to browser
  * $p->display();
+ * // output to file
+ * $p->toFile('example.html');
  * </code>
  * 
  * Simple XHTML declaration example:
