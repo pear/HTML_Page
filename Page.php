@@ -200,6 +200,14 @@ class HTML_Page extends HTML_Common {
     var $_metaTags = array( 'standard' => array ( 'Generator' => 'PEAR HTML_Page' ) );
     
     /**
+     * Document mime type
+     * 
+     * @var  string
+     * @access   private
+     */
+    var $_mime = 'text/html';
+    
+    /**
      * Array of linked scripts
      * 
      * @var  array
@@ -244,9 +252,10 @@ class HTML_Page extends HTML_Common {
      * Possible attributes are:
      * - general options:
      *     - "lineend" => "unix|win|mac" (Sets line ending style; defaults to unix.)
-     *     - "tab" => string (Sets line ending style; defaults to \t.)
+     *     - "tab"     => string (Sets line ending style; defaults to \t.)
      *     - "cache"   => "false|true"
      *     - "charset" => charset string (Sets charset encoding; defaults to utf-8)
+     *     - "mime"    => mime encoding string (Sets document mime type; defaults to text/html)
      * - XHTML specific:
      *     - "doctype"  => mixed (Sets XHTML doctype; defaults to XHTML 1.0 Transitional.)
      *     - "language" => two letter language designation. (Defines global document language; defaults to "en".)
@@ -285,6 +294,10 @@ class HTML_Page extends HTML_Common {
         
         if (isset($attributes['language'])) {
             $this->setLang($attributes['language']);
+        }
+        
+        if (isset($attributes['mime'])) {
+            $this->setMimeEncoding($attributes['mime']);
         }
         
         if (isset($attributes['cache'])) {
@@ -754,6 +767,20 @@ class HTML_Page extends HTML_Common {
     } // end func setMetaRefresh
     
     /**
+     * Sets the document MIME encoding that is sent to the browser.
+     * 
+     * @param    string    $type
+     * @access   public
+     * @returns  void
+     */
+    function setMimeEncoding($type = 'text/html')
+    {
+        $this->_mime = $type;
+        // adds an http-equiv meta tag declaration
+        $this->setMetaData('Content-type', $type . '; ' . $this->_charset , true );
+    } // end func setMimeEncoding
+    
+    /**
      * Sets the title of the page
      * 
      * @param    string    $title
@@ -780,17 +807,24 @@ class HTML_Page extends HTML_Common {
         // get the doctype declaration
         $strDoctype = $this->_getDoctype();
         
-        //
+        // This determines how the doctype is declared
         if ($this->_simple) {
+            
             $strHtml = '<html>' . $lnEnd;
+            
         } elseif ($this->_doctype['type'] == 'xhtml') {
+            
             $strHtml  = '<?xml version="1.0" encoding="' . $this->_charset . '"?>' . $lnEnd;
             $strHtml .= $strDoctype . $lnEnd;
             $strHtml .= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="'.$this->_language.'">';
+            
         } else {
+            
             $strHtml  = $strDoctype . $lnEnd;
             $strHtml .= '<html>' . $lnEnd;
+            
         }
+
         $strHtml .= $this->_generateHead();
         $strHtml .= $this->_generateBody();
         $strHtml .= '</html>';
@@ -812,7 +846,7 @@ class HTML_Page extends HTML_Common {
         }
         
         // set character encoding
-        header("Content-Type: text/html; charset=" . $this->_charset);
+        header('Content-Type: ' . $this->_mime .  '; charset=' . $this->_charset);
         
         $strHtml = $this->toHTML();
         print $strHtml;
