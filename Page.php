@@ -387,7 +387,7 @@ class HTML_Page extends HTML_Common {
         }
         
         // Generate stylesheet links
-        $count = count(this->_styleSheets);
+        $count = count($this->_styleSheets);
         for($intCounter=0; $intCounter < $count; $intCounter++) {
             $strStyleSheet = $this->_styleSheets[$intCounter];
             $strHtml .= $tab . "<link rel=\"stylesheet\" href=\"$strStyleSheet\" type=\"text/css\" />" . $lnEnd;
@@ -422,7 +422,7 @@ class HTML_Page extends HTML_Common {
         }
         
         // Generate script file links
-        $count = count(this->_scripts);
+        $count = count($this->_scripts);
         for($intCounter=0; $intCounter < $count; $intCounter++) {
             $strType = $this->_scripts[$intCounter]["type"];
             $strSrc = $this->_scripts[$intCounter]["src"];
