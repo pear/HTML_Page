@@ -443,8 +443,12 @@ class HTML_Page extends HTML_Common {
         }
         
         // Generate stylesheet links
-        foreach ($this->_styleSheets as $strSrc => $strType ) {
-            $strHtml .= $tab . "<link rel=\"stylesheet\" href=\"$strSrc\" type=\"$strType\"" . $tagEnd . $lnEnd;
+        foreach ($this->_styleSheets as $strSrc => $strAttr ) {
+            $strHtml .= $tab . "<link rel=\"stylesheet\" href=\"$strSrc\" type=\"".$strAttr['type'].'"';
+            if (!isnull($strType['media'])){
+                $strHtml .= ' media="'.$strAttr['media'].'"';
+            }
+            $strHtml .= $tagEnd . $lnEnd;
         }
         
         // Generate stylesheet declarations
@@ -726,12 +730,15 @@ class HTML_Page extends HTML_Common {
      * Adds a linked stylesheet to the page
      * 
      * @param    string  $url    URL to the linked style sheet
+     * @param    string  $type   Mime encoding type
+     * @param    string  $media  Media type that this stylesheet applies to
      * @access   public
      * @return   void
      */
-    function addStyleSheet($url, $type = 'text/css')
+    function addStyleSheet($url, $type = 'text/css', $media = null)
     {
-        $this->_styleSheets[$url] = $type;
+        $this->_styleSheets[$url]['mime']  = $type;
+        $this->_styleSheets[$url]['media'] = $media;
     } // end func addStyleSheet
     
     /**
