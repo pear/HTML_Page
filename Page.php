@@ -61,6 +61,7 @@ require_once 'HTML/Common.php';
  * $p = new HTML_Page(array (
  *
  *                          // Sets the charset encoding
+ *                          // utf-8 is default
  *                          'charset'  => 'utf-8',
  *
  *                          // Sets the line end character
@@ -114,7 +115,7 @@ require_once 'HTML/Common.php';
  * // An XHTML compliant page (with title) is automatically generated
  *
  * // This overrides the XHTML 1.0 Transitional default
- * $p->setDoctype('xhtml');
+ * $p->setDoctype('XHTML 1.0 Strict');
  * 
  * // Put some content in here
  * $p->addBodyContent("<p>some text</p>");
@@ -386,7 +387,8 @@ class HTML_Page extends HTML_Common {
         }
         
         // Generate stylesheet links
-        for($intCounter=0; $intCounter<count($this->_styleSheets); $intCounter++) {
+        $count = count(this->_styleSheets);
+        for($intCounter=0; $intCounter < $count; $intCounter++) {
             $strStyleSheet = $this->_styleSheets[$intCounter];
             $strHtml .= $tab . "<link rel=\"stylesheet\" href=\"$strStyleSheet\" type=\"text/css\" />" . $lnEnd;
         }
@@ -420,7 +422,8 @@ class HTML_Page extends HTML_Common {
         }
         
         // Generate script file links
-        for($intCounter=0; $intCounter<count($this->_scripts); $intCounter++) {
+        $count = count(this->_scripts);
+        for($intCounter=0; $intCounter < $count; $intCounter++) {
             $strType = $this->_scripts[$intCounter]["type"];
             $strSrc = $this->_scripts[$intCounter]["src"];
             $strHtml .= $tab . "<script type=\"$strType\" src=\"$strSrc\"></script>" . $lnEnd;
@@ -510,13 +513,13 @@ class HTML_Page extends HTML_Common {
      * It is possible to add objects, strings or an array of strings and/or objects
      * Objects must have a toString method.
      * 
-     * @param mixed  &$content  New &lt;body&gt; tag content.
+     * @param mixed $content  New &lt;body&gt; tag content (may be passed as a reference)
      * @access public
      */
-    function addBodyContent(&$content)
+    function addBodyContent($content)
     {
         $this->_body[] =& $content;
-    } // end addBodyContent
+    } // end addBodyContent    
     
     /**
      * Adds a linked script to the page
@@ -548,11 +551,11 @@ class HTML_Page extends HTML_Common {
      * Defaults to text/css.
      * 
      * @access   public
-     * @param    string  $type      Type of stylesheet (e.g., text/css)
-     * @param    mixed  &$content   Style declarations
+     * @param    mixed   $content   Style declarations (may be passed as a reference)
+     * @param    string  $type      Type of stylesheet (defaults to 'text/css')
      * @return   void
      */
-    function addStyleDeclaration(&$content, $type = 'text/css')
+    function addStyleDeclaration($content, $type = 'text/css')
     {
         $this->_style[$type] =& $content;
     } // end func addStyleDeclaration
@@ -569,10 +572,10 @@ class HTML_Page extends HTML_Common {
     } // end func apiVersion
     
     /**
-     * Defines if the document should be cached by the browser. Defaults to false.
+     * Returns the document charset encoding.
      * 
-     * @param string $cache Options are currently 'true' or 'false'. Defaults to 'false'.
      * @access public
+     * @returns string
      */
     function getCharset()
     {
@@ -630,10 +633,10 @@ class HTML_Page extends HTML_Common {
      * If you wish to use a "safe" version, use {@link addBodyContent}
      * Objects must have a toString method.
      * 
-     * @param mixed &$content New &lt;body&gt; tag content. May be an object.
+     * @param mixed $content New &lt;body&gt; tag content. May be an object. (may be passed as a reference)
      * @access public
      */
-    function setBody(&$content)
+    function setBody($content)
     {
         $this->unsetBody();
         $this->_body[] =& $content;
@@ -669,6 +672,7 @@ class HTML_Page extends HTML_Common {
      * 
      * @param string $cache Options are currently 'true' or 'false'. Defaults to 'false'.
      * @access public
+     * @returns void
      */
     function setCharset($type = 'utf-8')
     {
@@ -681,8 +685,9 @@ class HTML_Page extends HTML_Common {
      * _after_ declaring the character encoding with {@link setCharset} or directly
      * when the class is initiated {@link HTML_Page}.
      * 
-     * @param mixed $type   String containing a document type. Defaults to "XHTML 1.0 Transitional"
+     * @param string $type   String containing a document type. Defaults to "XHTML 1.0 Transitional"
      * @access public
+     * @returns void
      */
     function setDoctype($type = "XHTML 1.0 Transitional")
     {
@@ -747,6 +752,7 @@ class HTML_Page extends HTML_Common {
      * 
      * @param    string    $title
      * @access   public
+     * @returns  void
      */
     function setTitle($title)
     {
