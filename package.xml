@@ -31,12 +31,12 @@ The PEAR::HTML_Page package provides a simple interface for generating an XHTML 
     </maintainer>
   </maintainers>
   <release>
-    <version>2.0.0b6</version>
-    <date>2003-10-15</date>
+    <version>2.0.0b7</version>
+    <date>2003-10-16</date>
     <state>beta</state>
     <notes>
-* added output to file functionality
-* added support for CSS2 media types for linked stylesheets
+Bugfix release
+* fixed bug 110
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML">
@@ -57,6 +57,15 @@ The PEAR::HTML_Page package provides a simple interface for generating an XHTML 
     </deps>
   </release>
  <changelog>
+  <release>
+    <version>2.0.0b6</version>
+    <date>2003-10-15</date>
+    <state>beta</state>
+    <notes>
+* added output to file functionality
+* added support for CSS2 media types for linked stylesheets
+    </notes>
+  </release>
   <release>
     <version>2.0.0b5</version>
     <date>2003-07-29</date>

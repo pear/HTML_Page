@@ -445,7 +445,7 @@ class HTML_Page extends HTML_Common {
         // Generate stylesheet links
         foreach ($this->_styleSheets as $strSrc => $strAttr ) {
             $strHtml .= $tab . "<link rel=\"stylesheet\" href=\"$strSrc\" type=\"".$strAttr['type'].'"';
-            if (!isnull($strType['media'])){
+            if (!is_null($strType['media'])){
                 $strHtml .= ' media="'.$strAttr['media'].'"';
             }
             $strHtml .= $tagEnd . $lnEnd;
