@@ -206,7 +206,7 @@ class HTML_Page extends HTML_Common {
     /**
      * Document mime type
      * 
-     * @var  string
+     * @var      string
      * @access   private
      */
     var $_mime = 'text/html';
@@ -214,7 +214,7 @@ class HTML_Page extends HTML_Common {
     /**
      * Document namespace
      * 
-     * @var  string
+     * @var      string
      * @access   private
      */
     var $_namespace = '';
@@ -222,7 +222,7 @@ class HTML_Page extends HTML_Common {
     /**
      * Array of linked scripts
      * 
-     * @var  array
+     * @var      array
      * @access   private
      */
     var $_scripts = array();
@@ -236,7 +236,7 @@ class HTML_Page extends HTML_Common {
     var $_script = array();
     
     /**
-     * Defines whether doctype
+     * Suppresses doctype
      * 
      * @var     boolean
      * @access  private
