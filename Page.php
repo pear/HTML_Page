@@ -339,11 +339,14 @@ class HTML_Page extends HTML_Common {
     } // end class constructor
 
     /**
-     * itterates through an array, returning a string
+     * Iterates through an array, returning a string
      * of HTML. It also handles objects, calling the
-     * toHtml or toString methods.
+     * toHtml or toString methods and propagating
+     * the line endings and tabs for objects that
+     * extend HTML_Common.
      *
      * @access  protected
+     * @param   array   $array   The array to be processed
      * @return  string
      */
     function _arrayToHtml(&$array) // It's a reference just to save some memory.
