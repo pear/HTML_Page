@@ -970,13 +970,34 @@ class HTML_Page extends HTML_Common {
      */
     function setMetaData($name, $content, $http_equiv = false)
     {
-        if ($http_equiv == true) {
-            $this->_metaTags['http-equiv'][$name] = $content;
+        if ($content == '') {
+            $this->unsetMetaData($name, $http_equiv);
         } else {
-            $this->_metaTags['standard'][$name] = $content;
+            if ($http_equiv == true) {
+                $this->_metaTags['http-equiv'][$name] = $content;
+            } else {
+                $this->_metaTags['standard'][$name] = $content;
+            }
         }
     } // end func setMetaData
     
+    /**
+     * Unsets a meta tag.
+     *
+     * @param string  $name     Value of name or http-equiv tag
+     * @param bool    $http_equiv     META type "http-equiv" defaults to NULL
+     * @return void
+     * @access public
+     */
+    function unsetMetaData($name, $http_equiv = false)
+    {
+        if ($http_equiv == true) {
+            unset($this->_metaTags['http-equiv'][$name]);
+        } else {
+            unset($this->_metaTags['standard'][$name]);
+        }
+    } // end func unsetMetaData
+
     /**
      * Sets an http-equiv Content-Type meta tag
      * 
