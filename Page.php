@@ -417,7 +417,7 @@ class HTML_Page extends HTML_Common {
             } else {
                 $strHtml .= $content . $lnEnd;
             }
-            $strHtml .= $tab . $spacer . "-->" . $lnEnd;
+            $strHtml .= $tab . $tab . "-->" . $lnEnd;
             $strHtml .= $tab . "</style>" . $lnEnd;
         }
         
