@@ -59,7 +59,7 @@ $p = new HTML_Page(array (
                            'cache'     => 'false'
                          ));
  
-// Page title defaults to "New XHTML 1.0 Strict Page"
+// Page title defaults to "New XHTML 1.0 Strict Compliant Page"
 $p->setTitle("HTML_Page Color Chart example");
 $p->setMetaData("author", "Klaus Guenther");
 
