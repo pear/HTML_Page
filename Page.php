@@ -145,7 +145,7 @@ require_once 'HTML/Common.php';
  * 
  * @author       Adam Daniel <adaniel1@eesus.jnj.com>
  * @author       Klaus Guenther <klaus@capitalfocus.org>
- * @version      2.0.0b1
+ * @version      2.0
  * @since        PHP 4.0.3pl1
  */
 class HTML_Page extends HTML_Common {
@@ -259,7 +259,7 @@ class HTML_Page extends HTML_Common {
         $commonVersion = 1.7;
         if (HTML_Common::apiVersion() < $commonVersion) {
             return PEAR::raiseError("HTML_Page version " . $this->apiVersion() . " requires " .
-                "HTML_Common version $commonVersion or greater.", 0, PEAR_ERROR_TRIGGER);
+                "HTML_Common version 1.2 or greater.", 0, PEAR_ERROR_TRIGGER);
         }
         
         if ($attributes) {
@@ -510,10 +510,10 @@ class HTML_Page extends HTML_Common {
      * It is possible to add objects, strings or an array of strings and/or objects
      * Objects must have a toString method.
      * 
-     * @param mixed $content New &lt;body&gt; tag content.
+     * @param mixed  &$content  New &lt;body&gt; tag content.
      * @access public
      */
-    function addBodyContent($content)
+    function addBodyContent(&$content)
     {
         $this->_body[] =& $content;
     } // end addBodyContent

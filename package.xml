@@ -33,6 +33,8 @@ The PEAR::HTML_Page package provides a simple interface for generating an XHTML 
     <date>2003-06-13</date>
     <state>beta</state>
     <notes>
+Note: This release breaks BC!
+
 This beta release is completely XHTML compliant, and has some great features:
 * Line ending style
 * Full charset support
