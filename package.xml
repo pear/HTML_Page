@@ -2,10 +2,14 @@
 <!DOCTYPE package SYSTEM "../package.dtd">
 <package version="1.0">
   <name>HTML_Page</name>
-  <summary>PEAR::HTML_Page is a class for HTML page generation.</summary>
+  <summary>PEAR::HTML_Page is a base class for XHTML page generation.</summary>
   <description>
-The PEAR::HTML_Page package provides a simple interface for generating an HTML page framework.
-* META tag support (partial)
+The PEAR::HTML_Page package provides a simple interface for generating an XHTML compliant page.
+* supports Strict, Transitional and Frameset XHTML
+* global language declaration for the document
+* line ending styles
+* full META tag support
+* support for stylesheet declaration in the head section
 * support for linked stylesheets and scripts
 * body can be a string, object with toHtml or toString methods or an array (can be combined)
   </description>
@@ -25,6 +29,42 @@ The PEAR::HTML_Page package provides a simple interface for generating an HTML p
     </maintainer>
   </maintainers>
   <release>
+    <version>2.0.0b1</version>
+    <date>2003-06-13</date>
+    <state>beta</state>
+    <notes>
+This beta release is completely XHTML compliant, and has some great features:
+* Line ending style
+* Full charset support
+* Doctype definitions
+* Global document language
+* Full META tag support, including "http-equiv"
+* Suport for stylesheet declaration in the head section
+* Support for linked stylesheets and scripts
+
+Ideas for use:
+* Use to validate the output of a class for XHTML compliance
+* Quick prototyping using PEAR packages is now a breeze
+    </notes>
+    <filelist>
+      <dir name="/" baseinstalldir="HTML">
+        <file role="php">Page.php</file>
+          <dir name="Page">
+            <file role="php" name="Doctypes.php" />
+          </dir>
+          <dir name="examples">
+            <file role="doc" name="Page_NoDoctype.php" />
+            <file role="doc" name="Page_Simple.php" />
+            <file role="doc" name="Page_Complex.php" />
+          </dir>
+        </dir>
+    </filelist>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.2">HTML_Common</dep>
+    </deps>
+  </release>
+ <changelog>
+  <release>
     <version>1.0</version>
     <date>2003-06-13</date>
     <state>beta</state>
@@ -40,13 +80,6 @@ Features:
 Ideas for use:
 * Quick prototyping using PEAR packages is now a breeze
     </notes>
-    <filelist>
-      <dir name="/" baseinstalldir="HTML">
-        <file role="php">Page.php</file>
-      </dir>
-    </filelist>
-    <deps>
-      <dep type="pkg" rel="ge" version="1.1">HTML_Common</dep>
-    </deps>
   </release>
+ </changelog>
 </package>
