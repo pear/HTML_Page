@@ -480,7 +480,7 @@ class HTML_Page extends HTML_Common {
     /**
      * Returns the doctype declaration
      *
-     * @return string
+     * @return mixed
      * @access private
      */
     function _getDoctype()
@@ -532,7 +532,7 @@ class HTML_Page extends HTML_Common {
     /**
      * Retrieves the document namespace
      *
-     * @return string
+     * @return mixed
      * @access private
      */
     function _getNamepace()
@@ -798,6 +798,17 @@ class HTML_Page extends HTML_Common {
     } // end func setMetaData
     
     /**
+     * Sets an http-equiv Content-Type meta tag
+     * 
+     * @access   public
+     * @returns  void
+     */
+    function setMetaContentType()
+    {
+        $this->setMetaData('Content-Type', $this->_mime . '; ' . $this->_charset , true );
+    } // end func setMetaContentType
+    
+    /**
      * Easily sets or alters a refresh meta tag. 
      * If no $url is passed, "self" is presupposed, and the appropriate URL
      * will be automatically generated.
@@ -831,8 +842,6 @@ class HTML_Page extends HTML_Common {
     function setMimeEncoding($type = 'text/html')
     {
         $this->_mime = $type;
-        // adds an http-equiv meta tag declaration
-        $this->setMetaData('Content-type', $type . '; ' . $this->_charset , true );
     } // end func setMimeEncoding
     
     /**
