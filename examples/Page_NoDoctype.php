@@ -23,10 +23,10 @@ require_once "HTML/Page.php";
 // With no initial settings, the following defaults are set:
 //    -> lineends = unix (\12)
 //    -> doctype = XHTML 1.0 Transitional
+//                 (if set to "none", doctype and language are not set)
 //    -> language = en
 //    -> cache = false
-//    -> simple = false (if simple is true, doctype and language are unset)
-$p = new HTML_Page('simple="true"');
+$p = new HTML_Page('doctype="none"');
 
 // "simple" Page title defaults to "New HTML Page"
 
