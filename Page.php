@@ -260,6 +260,14 @@ class HTML_Page extends HTML_Common {
     var $_styleSheets = array();
     
     /**
+     * Array of Header &lt;link&gt; tags
+     *
+     * @var     array
+     * @access  private
+     */
+    var $_links = array();
+
+    /**
      * HTML page title
      * 
      * @var     string
@@ -450,6 +458,11 @@ class HTML_Page extends HTML_Common {
         //     This comes after meta tags because of possible
         //     http-equiv character set declarations.
         $strHtml .= $tab . '<title>' . $this->getTitle() . '</title>' . $lnEnd;
+        
+        // Generate link declarations
+        foreach ($this->_links as $link) {
+            $strHtml .= $tab . $link . $tagEnd . $lnEnd;
+        }
         
         // Generate stylesheet links
         foreach ($this->_styleSheets as $strSrc => $strAttr ) {
@@ -792,6 +805,40 @@ class HTML_Page extends HTML_Common {
         $this->_style[strtolower($type)] =& $content;
     } // end func addStyleDeclaration
     
+    /**
+     * Adds a favicon
+     * This adds a link to the icon shown in the favorites list or on the left
+     * of the url in the address bar. Some browsers also display it on the tab,
+     * as well.
+     *
+     * @access    public
+     * @param     string  $href        The link that is being related.
+     * @param     string  $type        File type
+     * @param     string  $relation    Relation of link
+     * @return    void
+     */
+    function addFavicon($href, $type = 'image/x-icon', $relation = 'shortcut icon') {
+        $this->_links[] = "<link href=\"$href\" rel=\"$relation\" type=\"$type\"";
+    } // end func addFavicon
+
+    /**
+     * Adds &lt;link&gt; tags to the head of the document.
+     * $relType defaults to 'rel' as it is the most common relation type used.
+     *
+     * @access   public
+     * @param    string  $href       The link that is being related.
+     * @param    string  $relation   Relation of link.
+     * @param    string  $relType    Relation type attribute.  Either rel or rev.
+     * @param    array   $attributes Associative array of remaining attributes.
+     * @return   void
+     */
+    function addHeadLink($href, $relation, $relType = 'rel', $attributes = array()) {
+        $attributes = $this->_parseAttributes($attributes);
+        $generatedTag = $this->_getAttrString($attributes);
+        $generatedTag = "<link href=\"$href\" $relType=\"$relation\"" . $generatedTag;
+        $this->_links[] = $generatedTag;
+    } // end func addHeadLink
+
     /**
      * Returns the current API version
      * 
