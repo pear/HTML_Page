@@ -31,12 +31,30 @@ The PEAR::HTML_Page package provides a simple interface for generating an XHTML 
     </maintainer>
   </maintainers>
   <release>
-    <version>2.0.0b7</version>
-    <date>2003-10-16</date>
+    <version>2.0.0RC1</version>
+    <date>2003-10-31</date>
     <state>beta</state>
     <notes>
-Bugfix release
-* fixed bug 110
+Note: This major release breaks BC!
+
+This release is completely XHTML compliant, and has some great features:
+* Line ending style
+* Full charset support
+* Doctype definitions
+* Namespace definitions
+* Mime encoding declaration
+* Global document language
+* Full META tag support, including "http-equiv"
+* Suport for stylesheet and script declarations in the head section
+* Support for linked stylesheets and scripts (including CSS 2.0 media definitions)
+* Can output directly to a file
+
+Ideas for use:
+* Use to validate the output of a class for XHTML compliance
+* Quick prototyping using PEAR packages is now a breeze
+
+Bugfix:
+* fixed bug #125
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML">
@@ -57,6 +75,15 @@ Bugfix release
     </deps>
   </release>
  <changelog>
+  <release>
+    <version>2.0.0b7</version>
+    <date>2003-10-16</date>
+    <state>beta</state>
+    <notes>
+Bugfix release
+* fixed bug 110
+    </notes>
+  </release>
   <release>
     <version>2.0.0b6</version>
     <date>2003-10-15</date>
