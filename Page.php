@@ -436,11 +436,11 @@ class HTML_Page extends HTML_Common {
             
             // This is for when XHTML is fully supported. Until then,
             // <!-- will be used for both.
-            //if ($this->_doctype['type'] == 'html' ) {
+            if ($this->_mime == 'text/html' ) {
                 $strHtml .= $tab . $tab . '<!--' . $lnEnd;
-            //} else {
-            //    $strHtml .= $tab . $tab . '<![CDATA[' . $lnEnd;
-            //}
+            } else {
+                $strHtml .= $tab . $tab . '<![CDATA[' . $lnEnd;
+            }
             
             if (is_object($content)) {
                 
@@ -465,11 +465,11 @@ class HTML_Page extends HTML_Common {
             
             // See above note
             
-            //if ($this->_doctype['type'] == 'html' ) {
+            if ($this->_mime == 'text/html' ) {
                 $strHtml .= $tab . $tab . '-->' . $lnEnd;
-            //} else {
-            //    $strHtml .= $tab . $tab . ']]>' . $lnEnd;
-            //}
+            } else {
+                $strHtml .= $tab . $tab . ']]>' . $lnEnd;
+            }
             $strHtml .= $tab . '</style>' . $lnEnd;
         }
         
