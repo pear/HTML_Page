@@ -22,6 +22,7 @@
 require_once 'PEAR.php';
 require_once 'HTML/Common.php';
 // HTML/Page/Doctypes.php is required in _getDoctype()
+// HTML/Page/Namespaces.php is required in _getNamespace()
 
 /**
  * Base class for XHTML pages
@@ -56,7 +57,7 @@ require_once 'HTML/Common.php';
  * <code>
  * // The initializing code can also be in in the form of an HTML
  * // attr="value" string.
- * // Possible attributes are: charset, lineend, tab, doctype, language and cache
+ * // Possible attributes are: charset, mime, lineend, tab, doctype, namespace, language and cache
  * 
  * $p = new HTML_Page(array (
  *
@@ -100,7 +101,7 @@ require_once 'HTML/Common.php';
  * // for more details
  * if ($error) {
  *     $p->setTitle("Error!");
- *     $p->setBodyContent("<p>oops, we have an error: $error</p>");
+ *     $p->setBodyContent("<p>Houston, we have a problem: $error</p>");
  *     $p->display();
  *     die;
  * } // end error handling
@@ -208,6 +209,14 @@ class HTML_Page extends HTML_Common {
     var $_mime = 'text/html';
     
     /**
+     * Document namespace
+     * 
+     * @var  string
+     * @access   private
+     */
+    var $_namespace = '';
+    
+    /**
      * Array of linked scripts
      * 
      * @var  array
@@ -257,8 +266,9 @@ class HTML_Page extends HTML_Common {
      *     - "charset" => charset string (Sets charset encoding; defaults to utf-8)
      *     - "mime"    => mime encoding string (Sets document mime type; defaults to text/html)
      * - XHTML specific:
-     *     - "doctype"  => mixed (Sets XHTML doctype; defaults to XHTML 1.0 Transitional.)
+     *     - "doctype"  => string (Sets XHTML doctype; defaults to XHTML 1.0 Transitional.)
      *     - "language" => two letter language designation. (Defines global document language; defaults to "en".)
+     *     - "namespace"  => string (Sets document namespace; defaults to the W3C defined namespace.)
      * 
      * @param   mixed   $attributes     Associative array of table tag attributes
      *                                  or HTML attributes name="value" pairs
@@ -298,6 +308,10 @@ class HTML_Page extends HTML_Common {
         
         if (isset($attributes['mime'])) {
             $this->setMimeEncoding($attributes['mime']);
+        }
+        
+        if (isset($attributes['namespace'])) {
+            $this->setNamespace($attributes['namespace']);
         }
         
         if (isset($attributes['cache'])) {
@@ -506,6 +520,39 @@ class HTML_Page extends HTML_Common {
         }
         
     } // end func _getDoctype
+    
+    /**
+     * Retrieves the document namespace
+     *
+     * @return string
+     * @access private
+     */
+    function _getNamepace()
+    {
+        require('HTML/Page/Namespaces.php');
+        
+        $type = $this->_doctype['type'];
+        $version = $this->_doctype['version'];
+        $variant = $this->_doctype['variant'];
+        
+        $strNamespace = '';
+        
+        if (isset($namespace[$type][$version][$variant]) && is_string($namespace[$type][$version][$variant])) {
+            $strNamespace = $namespace[$type][$version][$variant];
+        } elseif (isset($namespace[$type][$version]) && is_string($namespace[$type][$version]) ) {
+            $strNamespace = $namespace[$type][$version];
+        } elseif (isset($namespace[$type]) && is_string($namespace[$type]) ) {
+            $strNamespace = $namespace[$type];
+        }
+        
+        if ($strNamespace) {
+            return $strNamespace;
+        } else {
+            return PEAR::raiseError('Error: "'.$this->getDoctypeString().'" does not have a default namespace. Use setNamespace() to define your namespace.',
+                                    0,PEAR_ERROR_TRIGGER);
+        }
+        
+    } // end func _getNamespace
     
     /**
      * Parses a doctype declaration like "XHTML 1.0 Strict" to an array
@@ -781,6 +828,22 @@ class HTML_Page extends HTML_Common {
     } // end func setMimeEncoding
     
     /**
+     * Sets the document namespace
+     * 
+     * @param    string    $namespace  Optional. W3C namespaces are used by default.
+     * @access   public
+     * @returns  void
+     */
+    function setNamespace($namespace = '')
+    {
+        if (is_set($namespace)){
+            $this->_namespace = $namespace;
+        } else {
+            $this->_namespace = $this->_getNamespace();
+        }
+    } // end func setTitle
+    
+    /**
      * Sets the title of the page
      * 
      * @param    string    $title
@@ -814,9 +877,14 @@ class HTML_Page extends HTML_Common {
             
         } elseif ($this->_doctype['type'] == 'xhtml') {
             
+            // get the namespace if not already set
+            if (!$this->_namespace){
+                $this->_namespace = $this->_getNamespace();
+            }
+            
             $strHtml  = '<?xml version="1.0" encoding="' . $this->_charset . '"?>' . $lnEnd;
             $strHtml .= $strDoctype . $lnEnd;
-            $strHtml .= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="'.$this->_language.'">';
+            $strHtml .= '<html xmlns="' . $this->_namespace . '" xml:lang="' . $this->_language . '">';
             
         } else {
             
