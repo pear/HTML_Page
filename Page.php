@@ -487,19 +487,27 @@ class HTML_Page extends HTML_Common {
     {
         require('HTML/Page/Doctypes.php');
         
-        $type = $this->_doctype['type'];
-        $version = $this->_doctype['version'];
-        $variant = $this->_doctype['variant'];
+        if (isset($this->_doctype['type'])) {
+            $type = $this->_doctype['type'];
+        }
+        
+        if (isset($this->_doctype['version'])) {
+            $version = $this->_doctype['version'];
+        }
+        
+        if (isset($this->_doctype['variant'])) {
+            $variant = $this->_doctype['variant'];
+        }
         
         $strDoctype = '';
         
-        if ($variant != '') {
+        if (isset($variant)) {
             if (isset($doctype[$type][$version][$variant][0])) {
                 foreach ( $doctype[$type][$version][$variant] as $string) {
                     $strDoctype .= $string.$this->_getLineEnd();
                 }
             }
-        } elseif ($version != '') {
+        } elseif (isset($version)) {
             if (isset($doctype[$type][$version][0])) {
                 foreach ( $doctype[$type][$version] as $string) {
                     $strDoctype .= $string.$this->_getLineEnd();
@@ -510,7 +518,7 @@ class HTML_Page extends HTML_Common {
                     $strDoctype = $this->_getDoctype();
                 }
             }
-        } elseif ($type != '') {
+        } elseif (isset($type)) {
             if (isset($default[$type][0])){
                 $this->_doctype = $this->_parseDoctypeString($default[$type][0]);
                 $strDoctype = $this->_getDoctype();
@@ -535,7 +543,7 @@ class HTML_Page extends HTML_Common {
      * @return mixed
      * @access private
      */
-    function _getNamepace()
+    function _getNamespace()
     {
         require('HTML/Page/Namespaces.php');
         
@@ -545,13 +553,14 @@ class HTML_Page extends HTML_Common {
         
         $strNamespace = '';
         
-        if (isset($namespace[$type][$version][$variant]) && is_string($namespace[$type][$version][$variant])) {
-            $strNamespace = $namespace[$type][$version][$variant];
-        } elseif (isset($namespace[$type][$version]) && is_string($namespace[$type][$version]) ) {
-            $strNamespace = $namespace[$type][$version];
-        } elseif (isset($namespace[$type]) && is_string($namespace[$type]) ) {
-            $strNamespace = $namespace[$type];
+        if (isset($namespace[$type][$version][$variant][0]) && is_string($namespace[$type][$version][$variant][0])) {
+            $strNamespace = $namespace[$type][$version][$variant][0];
+        } elseif (isset($namespace[$type][$version][0]) && is_string($namespace[$type][$version][0]) ) {
+            $strNamespace = $namespace[$type][$version][0];
+        } elseif (isset($namespace[$type][0]) && is_string($namespace[$type][0]) ) {
+            $strNamespace = $namespace[$type][0];
         }
+            
         
         if ($strNamespace) {
             return $strNamespace;
@@ -574,7 +583,13 @@ class HTML_Page extends HTML_Common {
         $split = explode(' ',strtolower($string));
         $elements = count($split);
         
-        $array = array('type'=>$split[0],'version'=>$split[1],'variant'=>$split[2]);
+        if (isset($split[2])){
+            $array = array('type'=>$split[0],'version'=>$split[1],'variant'=>$split[2]);
+        } elseif (isset($split[1])){
+            $array = array('type'=>$split[0],'version'=>$split[1]);
+        } else {
+            $array = array('type'=>$split[0]);
+        }
         
         return $array;
     } // end func _parseDoctypeString
