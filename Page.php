@@ -225,6 +225,14 @@ class HTML_Page extends HTML_Common {
     var $_scripts = array();
     
     /**
+     * Array of scripts placed in the header
+     * 
+     * @var  array
+     * @access   private
+     */
+    var $_script = array();
+    
+    /**
      * Array of linked scripts
      * 
      * @var     array
@@ -434,8 +442,7 @@ class HTML_Page extends HTML_Common {
         foreach ($this->_style as $type => $content) {
             $strHtml .= $tab . '<style type="' . $type . '">' . $lnEnd;
             
-            // This is for when XHTML is fully supported. Until then,
-            // <!-- will be used for both.
+            // This is for full XHTML supporte.
             if ($this->_mime == 'text/html' ) {
                 $strHtml .= $tab . $tab . '<!--' . $lnEnd;
             } else {
@@ -455,7 +462,7 @@ class HTML_Page extends HTML_Common {
                 if (method_exists($content, "toString")) {
                     $strHtml .= $content->toString() . $lnEnd;
                 } else {
-                    return PEAR::raiseError('Error: Body content object does not support  method toString().',
+                    return PEAR::raiseError('Error: Style content object does not support  method toString().',
                     0,PEAR_ERROR_TRIGGER);
                 }
                 
@@ -479,6 +486,47 @@ class HTML_Page extends HTML_Common {
             $strType = $this->_scripts[$intCounter]["type"];
             $strSrc = $this->_scripts[$intCounter]["src"];
             $strHtml .= $tab . "<script type=\"$strType\" src=\"$strSrc\"></script>" . $lnEnd;
+        }
+        
+        // Generate script declarations
+        foreach ($this->_script as $type => $content) {
+            $strHtml .= $tab . '<script type="' . $type . '">' . $lnEnd;
+            
+            // This is for full XHTML support.
+            if ($this->_mime == 'text/html' ) {
+                $strHtml .= $tab . $tab . '<!--' . $lnEnd;
+            } else {
+                $strHtml .= $tab . $tab . '<![CDATA[' . $lnEnd;
+            }
+            
+            if (is_object($content)) {
+                
+                // first let's propagate line endings and tabs for other HTML_Common-based objects
+                if (is_subclass_of($content, "html_common")) {
+                    $content->setTab($tab);
+                    $content->setTabOffset(3);
+                    $content->setLineEnd($lnEnd);
+                }
+                
+                // now let's get a string from the object
+                if (method_exists($content, "toString")) {
+                    $strHtml .= $content->toString() . $lnEnd;
+                } else {
+                    return PEAR::raiseError('Error: Script content object does not support  method toString().',
+                    0,PEAR_ERROR_TRIGGER);
+                }
+                
+            } else {
+                $strHtml .= $content . $lnEnd;
+            }
+            
+            // See above note
+            if ($this->_mime == 'text/html' ) {
+                $strHtml .= $tab . $tab . '-->' . $lnEnd;
+            } else {
+                $strHtml .= $tab . $tab . ']]>' . $lnEnd;
+            }
+            $strHtml .= $tab . '</script>' . $lnEnd;
         }
         
         // Close tag
@@ -644,7 +692,7 @@ class HTML_Page extends HTML_Common {
     /**
      * Adds a linked script to the page
      * 
-     * @param    string  $url        URL to the linked style sheet
+     * @param    string  $url        URL to the linked script
      * @param    string  $type       Type of script. Defaults to 'text/javascript'
      * @access   public
      */
@@ -652,6 +700,21 @@ class HTML_Page extends HTML_Common {
     {
         $this->_scripts[] = array("type"=>$type, "src"=>$url);
     } // end func addScript
+    
+    /**
+     * Adds a script to the page.
+     * Content can be a string or an object with a toString method.
+     * Defaults to text/javascript.
+     * 
+     * @access   public
+     * @param    mixed   $content   Script (may be passed as a reference)
+     * @param    string  $type      Scripting mime (defaults to 'text/javascript')
+     * @return   void
+     */
+    function addScriptDeclaration($content, $type = 'text/javascript')
+    {
+        $this->_script[strtolower($type)] =& $content;
+    } // end func addScriptDeclaration
     
     /**
      * Adds a linked stylesheet to the page
@@ -677,7 +740,7 @@ class HTML_Page extends HTML_Common {
      */
     function addStyleDeclaration($content, $type = 'text/css')
     {
-        $this->_style[$type] =& $content;
+        $this->_style[strtolower($type)] =& $content;
     } // end func addStyleDeclaration
     
     /**
@@ -887,7 +950,7 @@ class HTML_Page extends HTML_Common {
      */
     function setMimeEncoding($type = 'text/html')
     {
-        $this->_mime = $type;
+        $this->_mime = strtolower($type);
     } // end func setMimeEncoding
     
     /**
