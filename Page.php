@@ -700,13 +700,36 @@ class HTML_Page extends HTML_Common {
      * Objects must have a toString method.
      * 
      * @param mixed $content  New &lt;body&gt; tag content (may be passed as a reference)
+     * @param int   $flag     Determines whether to prepend, append or replace the content
      * @access public
      */
-    function addBodyContent($content)
+    function addBodyContent($content, $flag = 0)
     {
-        $this->_body[] =& $content;
+        if ($flag == 2) {
+            $this->setBody($content);
+        } elseif ($flag == 1) {
+            array_unshift($this->_body, $content);
+        } else {
+            $this->_body[] =& $content;
+        }
     } // end addBodyContent    
     
+    /**
+     * Prepends content to the content of the &lt;body&gt; tag. Wrapper for {@link addBodyContent}
+     * If you wish to overwrite whatever is in the body, use {@link setBody};
+     * {@link addBodyContent} provides full functionality including appending;
+     * {@link unsetBody} completely empties the body without inserting new content.
+     * It is possible to add objects, strings or an array of strings and/or objects
+     * Objects must have a toString method.
+     *
+     * @param mixed $content  New &lt;body&gt; tag content (may be passed as a reference)
+     * @access public
+     */
+    function prependBodyContent($content)
+    {
+        $this->addBodyContent($content, 1);
+    } // end func addScript
+
     /**
      * Adds a linked script to the page
      * 
