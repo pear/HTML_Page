@@ -367,6 +367,12 @@ class HTML_Page extends HTML_Common {
      */
     function _generateHead()
     {
+        // close empty tags if XHTML
+        if ($_doctype['type] == 'xhtml'){
+            $tagEnd = ' />';
+        } else {
+            $tagEnd = '>';
+        }
         
         // get line endings
         $lnEnd = $this->_getLineEnd();
@@ -379,9 +385,9 @@ class HTML_Page extends HTML_Common {
         foreach ($this->_metaTags as $type => $tag) {
             foreach ($tag as $name => $content) {
                 if ($type == 'http-equiv') {
-                    $strHtml .= $tab . "<meta http-equiv=\"$name\" content=\"$content\" />" . $lnEnd;
+                    $strHtml .= $tab . "<meta http-equiv=\"$name\" content=\"$content\"" . $tagEnd . $lnEnd;
                 } elseif ($type == 'standard') {
-                    $strHtml .= $tab . "<meta name=\"$name\" content=\"$content\" />" . $lnEnd;
+                    $strHtml .= $tab . "<meta name=\"$name\" content=\"$content\"" . $tagEnd . $lnEnd;
                 }
             }
         }
@@ -390,7 +396,7 @@ class HTML_Page extends HTML_Common {
         $count = count($this->_styleSheets);
         for($intCounter=0; $intCounter < $count; $intCounter++) {
             $strStyleSheet = $this->_styleSheets[$intCounter];
-            $strHtml .= $tab . "<link rel=\"stylesheet\" href=\"$strStyleSheet\" type=\"text/css\" />" . $lnEnd;
+            $strHtml .= $tab . "<link rel=\"stylesheet\" href=\"$strStyleSheet\" type=\"text/css\"" . $tagEnd . $lnEnd;
         }
         
         // Generate stylesheet declarations
