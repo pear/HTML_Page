@@ -22,13 +22,13 @@ require_once 'HTML/Page.php';
 require_once 'HTML/Table.php';
 
 // This is an example from HTML_Table
-$table = new HTML_Table('width=100%');
+$table = new HTML_Table('width=100% style="background-color:000000;"');
 $table->setCaption('256 colors table');
 $i = $j = 0;
 for ($R = 0; $R <= 255; $R += 51) {
     for ($G = 0; $G <= 255; $G += 51) {
         for($B = 0; $B <= 255; $B += 51) {
-            $table->setCellAttributes($i, $j, 'bgcolor=#'.sprintf('%02X%02X%02X', $R, $G, $B));
+            $table->setCellAttributes($i, $j, 'style="background-color:'.sprintf('%02X%02X%02X'.';"', $R, $G, $B));
             $j++;
         }
     }
@@ -42,20 +42,21 @@ for ($R = 0; $R <= 255; $R += 51) {
 // Possible attributes are: lineend, doctype, language and cache
 
 $p = new HTML_Page(array ( 
-                           'lineend'   => 'unix',
-                           'doctype'   => 'strict',
+                           'lineend'   => 'win',
+                           'doctype'   => 'XHTML 1.0 Strict',
                            'language'  => 'en',
                            'cache'     => 'false'
                          ));
  
 // Page title defaults to "New XHTML 1.0 Page"
 $p->setTitle("HTML_Page Color Chart example");
-$p->addMetaData("author", "Klaus Guenther");
+$p->setMetaData("author", "Klaus Guenther");
 
 $p->addBodyContent("<h1>Color Chart</h1>");
 
 // Objects with toHtml and toString are supported.
-$p->addBodyContent($table);
+$p->addBodyContent(&$table);
 $p->addBodyContent('<p>Copyright 2003 The PHP Group</p>');
 $p->display();
+
 ?>
