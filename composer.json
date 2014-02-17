@@ -11,11 +11,12 @@
             "./"
         ]
     },
-    "description": "More info available on: http://pear.php.net/package/HTML_Page",
-    "license": "PHP License 3.0",
+    "description": "A simple interface for generating an XHTML page.",
+    "homepage": "http://pear.php.net/package/HTML_Page",
+    "license": "PHP-3.0",
     "name": "pear/html_page",
     "support": {
-        "issues": "http:///bugs/search.php?cmd=display&package_name[]=HTML_Page",
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=HTML_Page",
         "source": "https://github.com/pear/HTML_Page"
     },
     "type": "library",
