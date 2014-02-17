@@ -1,0 +1,25 @@
+{
+    "authors": [
+        {
+            "email": "klaus@capitalfocus.org",
+            "name": "Klaus Guenther",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    },
+    "description": "More info available on: http://pear.php.net/package/HTML_Page",
+    "license": "PHP License 3.0",
+    "name": "pear/html_page",
+    "support": {
+        "issues": "http:///bugs/search.php?cmd=display&package_name[]=HTML_Page",
+        "source": "https://github.com/pear/HTML_Page"
+    },
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
