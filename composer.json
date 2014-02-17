@@ -1,0 +1,26 @@
+{
+    "authors": [
+        {
+            "email": "klaus@capitalfocus.org",
+            "name": "Klaus Guenther",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    },
+    "description": "A simple interface for generating an XHTML page.",
+    "homepage": "http://pear.php.net/package/HTML_Page",
+    "license": "PHP-3.0",
+    "name": "pear/html_page",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=HTML_Page",
+        "source": "https://github.com/pear/HTML_Page"
+    },
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
